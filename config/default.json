@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://banin:bisaja2129@bangkit-database.obfgp.mongodb.net/UserDatabase?retryWrites=true&w=majority",
+  "jwtSecret": "jsonwebtokenforbangkit"
+}
