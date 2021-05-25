@@ -1,4 +1,7 @@
 {
   "mongoURI": "mongodb+srv://banin:bisaja2129@bangkit-database.obfgp.mongodb.net/UserDatabase?retryWrites=true&w=majority",
-  "jwtSecret": "jsonwebtokenforbangkit"
+  "jwtSecret": "jsonwebtokenforbangkit",
+  "WAQI_KEY": "6d768852224da39fef4b534ad450b758c693c551",
+  "OPENWEATHER_KEY": "3b64693130242c14a4d2f4abb0da443c",
+  "WEATHERBIT_KEY": "5052c7106c6b45ddbe043785bea4b8ec"
 }
