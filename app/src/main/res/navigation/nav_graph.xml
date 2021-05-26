@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.sociogreen.HomeFragment"
+        android:label="homeFragment"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/navigation_ipu"
+        android:name="com.example.sociogreen.IpuFragment"
+        android:label="ipuFragment"
+        tools:layout="@layout/fragment_ipu" />
+    <fragment
+        android:id="@+id/navigation_challenge"
+        android:name="com.example.sociogreen.ChallengeFragment"
+        android:label="challengeFragment"
+        tools:layout="@layout/fragment_challenge" />
+    <fragment
+        android:id="@+id/navigation_leaderboard"
+        android:name="com.example.sociogreen.LeaderboardFragment"
+        android:label="fragment_favorite_movie"
+        tools:layout="@layout/fragment_leaderboard" />
+
+</navigation>

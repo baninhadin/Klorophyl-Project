@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">SocioGreen</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="beranda">Beranda</string>
+    <string name="ipu">IPU</string>
+    <string name="tantangan">Tantangan</string>
+    <string name="peringkat">Peringkat</string>
+    <string name="challenge_fragment">Challenge Fragment</string>
+    <string name="home_fragment">Home Fragment</string>
+    <string name="ipu_fragment">IPU Fragment</string>
+    <string name="leaderboard_fragment">Leaderboard Fragment</string>
+</resources>
