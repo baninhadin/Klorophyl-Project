@@ -1,5 +1,5 @@
 const express = require('express')
-const config = require('config')
+// const config = require('config')
 const router = express.Router()
 const auth = require('../../middleware/auth')
 const { check, validationResult } = require('express-validator')
