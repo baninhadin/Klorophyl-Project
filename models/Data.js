@@ -39,7 +39,7 @@ const dataSchema = new mongoose.Schema({
     aqi: {
       type: Number,
     },
-    no: {
+    co: {
       type: Number,
     },
     o3: {
