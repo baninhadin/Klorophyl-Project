@@ -5,10 +5,47 @@ const router = express.Router()
 const Data = require('../../models/Data')
 var cron = require('node-cron')
 
-// cron.schedule('59 * * * *', async () => {
-let fetchData = async () => {
+
+var degToCard = function(deg){
+  if (deg>11.25 && deg<=33.75){
+    return "north-northeast";
+  }else if (deg>33.75 && deg<=56.25){
+    return "east-northeast";
+  }else if (deg>56.25 && deg<=78.75){
+    return "east";
+  }else if (deg>78.75 && deg<=101.25){
+    return "east-southeast";
+  }else if (deg>101.25 && deg<=123.75){
+    return "east-southeast";
+  }else if (deg>123.75 && deg<=146.25){
+    return "southeast";
+  }else if (deg>146.25 && deg<=168.75){
+    return "south-southeast";
+  }else if (deg>168.75 && deg<=191.25){
+    return "south";
+  }else if (deg>191.25 && deg<=213.75){
+    return "south-southwest";
+  }else if (deg>213.75 && deg<=236.25){
+    return "southwest";
+  }else if (deg>236.25 && deg<=258.75){
+    return "west-southwest";
+  }else if (deg>258.75 && deg<=281.25){
+    return "west";
+  }else if (deg>281.25 && deg<=303.75){
+    return "west-northwest";
+  }else if (deg>303.75 && deg<=326.25){
+    return "northwest";
+  }else if (deg>326.25 && deg<=348.75){
+    return "north-northwest";
+  }else{
+    return "north"; 
+  }
+}
+
+cron.schedule('0 */3 * * *', async () => {
+// let fetchData = async () => {
   console.log(
-    'Fetching data and storing it to database every hour at minute 59'
+    'Fetching data and storing it to database every 3 hour'
   )
   try {
     // Initialize variable for fetching data
@@ -26,66 +63,47 @@ let fetchData = async () => {
       .toISOString()
       .slice(0, 13)
       .replace('T', ':')
-    // let startDate = '2021-05-24'
-    // let endDate = '2021-05-25'
-    // endDate = new Date(endDate.getTime() - 1 * 24 * 60 * 60 * 1000)
-    // .toISOString()
-    // .slice(0, 13)
-    // .replace('T', ':')
-    endDate = endDate.toISOString().slice(0, 13).replace('T', ':')
+      endDate = endDate.toISOString().slice(0, 13).replace('T', ':')
 
     realData = rawData.data.data
 
     // Looping through the location and fetching data on other api based on fetched data
     const promises = await realData.map(async (datas) => {
       // Fetch weather data from WEATHERBIT API
-      token = config.get('WEATHERBIT_KEY')
+      token = config.get('WEATHERBIT_KEY_2')
       link = 'http://api.weatherbit.io/v2.0'
       endpoints = 'history/hourly'
       params = `lat=${datas.station.geo[0]}&lon=${datas.station.geo[1]}&key=${token}&start_date=${startDate}&end_date=${endDate}`
       console.log(`${link}/${endpoints}?${params}`)
+
       let weatherData = await axios.get(`${link}/${endpoints}?${params}`)
+      // console.log(weatherData.data.data)
+       endDate = new Date()
+       startDate = new Date(endDate.getTime() - 2 * 24 * 60 * 60 * 1000)
+        .toISOString()
+        .slice(0, 13)
+        .replace('T', ':')
+        endDate = new Date(endDate.getTime() - 1 * 24 * 60 * 60 * 1000)
+        .toISOString()
+        .slice(0, 13)
+        .replace('T', ':')
+        params = `lat=${datas.station.geo[0]}&lon=${datas.station.geo[1]}&key=${token}&start_date=${startDate}&end_date=${endDate}`
 
-      // Loop through data from 1 day span
-      // const weatherPromises = await weatherData.data.data.map(async (item) => {
-      //   let data = new Data({
-      //     name: datas.station.name,
-      //     geo: {
-      //       latitude: datas.station.geo[0],
-      //       longitude: datas.station.geo[1],
-      //     },
-      //   })
-      //   let adaData = await Data.findOne({ date: item.timestamp_utc })
+      let weatherData1 = await axios.get(`${link}/${endpoints}?${params}`)
+      endDate = new Date()
+      startDate = new Date(endDate.getTime() - 3 * 24 * 60 * 60 * 1000)
+       .toISOString()
+       .slice(0, 13)
+       .replace('T', ':')
+       endDate = new Date(endDate.getTime() - 2 * 24 * 60 * 60 * 1000)
+       .toISOString()
+       .slice(0, 13)
+       .replace('T', ':')    
+       params = `lat=${datas.station.geo[0]}&lon=${datas.station.geo[1]}&key=${token}&start_date=${startDate}&end_date=${endDate}`   
+      let weatherData2 = await axios.get(`${link}/${endpoints}?${params}`)
 
-      //   // If it's a new data
-      //   if (!adaData) {
-      //     console.log(
-      //       `fetch weather. tidak ada data pada timestamp ${item.timestamp_utc}`
-      //     )
-      //     data.date = item.timestamp_utc
-      //     data.weather.windDir = item.wind_cdir_full
-      //     data.weather.windSpeed = item.wind_spd
-      //     data.weather.precip = item.precip
-      //     data.weather.temp = item.temp
-      //     data.weather.humidity = item.rh
-      //     data.weather.desc = item.weather.description
-      //     return data.save()
-      //   }
-
-      //   // If data already exist but no weather data
-      //   if (!adaData.weather.temp) {
-      //     console.log(
-      //       `fetch weather. ada data , tidak ada weather pada timestamp ${item.timestamp_utc}`
-      //     )
-      //     adaData.weather.windDir = item.wind_cdir_full
-      //     adaData.weather.windSpeed = item.wind_spd
-      //     adaData.weather.precip = item.precip
-      //     adaData.weather.temp = item.temp
-      //     adaData.weather.humidity = item.rh
-      //     adaData.weather.desc = item.weather.description
-      //     return adaData.save()
-      //   }
-      // })
+      let totalWeatherData = weatherData.data.data.concat(weatherData1.data.data).concat(weatherData2.data.data)
+ 
 
       // Fetch air quality data from WEATHERBIT API
       endpoints = 'history/airquality'
@@ -93,14 +111,6 @@ let fetchData = async () => {
 
       let aqiData = await axios.get(`${link}/${endpoints}?${params}`)
 
-      // Loop through data from last 72 hours
-      // let ketemu = weatherData.data.data.findOne({
-      // date: new Date('2021-05-28T03:00:00.000Z'),
-      // })
-
-      // console.log(
-      // `ada data ${foundWeatherData} weather pada timestamp: ${item.timestamp_utc}`
-      // )
       const aqiPromises = await aqiData.data.data.map(async (item) => {
         let data = new Data({
           name: datas.station.name,
@@ -110,18 +120,11 @@ let fetchData = async () => {
           },
         })
 
-        let adaData = await Data.findOne({
-          date: new Date(item.timestamp_utc),
+
+        let foundWeatherData = totalWeatherData.find((items) => {
+          return items.timestamp_utc == item.timestamp_utc
         })
 
-        let foundWeatherData = weatherData.data.data.find(
-          (items) => items.timestamp_utc == item.timestamp_utc
-        )
-        // if it's a new data
-        // if (!adaData) {
-        // console.log(
-        // `fetch aqi. tidak ada data pada timestamp ${item.timestamp_utc}`
-        // )
         data.date = item.timestamp_utc
         data.airQuality.aqi = item.aqi
         data.airQuality.co = item.co
@@ -130,8 +133,10 @@ let fetchData = async () => {
         data.airQuality.no2 = item.no2
         data.airQuality.pm10 = item.pm10
         data.airQuality.pm25 = item.pm25
+
         if (foundWeatherData) {
-          data.weather.windDir = foundWeatherData.wind_cdir_full
+
+          data.weather.windDir = degToCard(foundWeatherData.wind_dir)
           data.weather.windSpeed = foundWeatherData.wind_spd
           data.weather.precip = foundWeatherData.precip
           data.weather.temp = foundWeatherData.temp
@@ -139,33 +144,22 @@ let fetchData = async () => {
           data.weather.desc = foundWeatherData.weather.description
         }
 
-        // console.log(data)
-        // console.log('data tidak ada')
         return data.save()
-        // }
-
-        // console.log(
-        // `fetch aqi. data sudah lengkap. pada timestamp ${item.timestamp_utc} dengan aqi ${adaData.airQuality.aqi}`
-        // )
       })
 
-      // let awaitedAqi = await Promise.all(aqiPromises)
-      // let awaitedWeather = await Promise.all(weatherPromises)
 
-      // return awaitedAqi.concat(awaitedWeather)
       return aqiPromises
     })
 
     await Promise.all(promises)
 
-    // console.log(promises)
   } catch (err) {
     console.error(err.message)
     res.status(500).send("There's an error on the server")
   }
-}
+})
 
-fetchData()
+// fetchData()
 
 router.get('/history', async (req, res) => {
   try {
@@ -281,23 +275,9 @@ router.get('/current', async (req, res) => {
       // console.log(data)
       return data
     })
-    // await promises
-    //   .map((item) => {
-    //     item.then((data) => {
-    //       return data
-    //     })
-    //   })
-    //   .then((data) => {
-    //     console.log(data)
-    //   })
-    // console.log(promises)
 
-    // promises.then((data) => console.log(data))
-    // await Promise.all(await promises)
     Promise.all(promises).then((data) => res.json(data))
-    // res.json(promises)
-    // console.log(promises)
-    // console.log(sendData)
+
   } catch (err) {
     console.error(err.message)
     res.status(500).send("There's an error on the server")
