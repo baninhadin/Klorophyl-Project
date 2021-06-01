@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/bnv_home"
+        android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home"
         android:title="@string/beranda" />
     <item
-        android:id="@+id/menu_ipu"
+        android:id="@+id/navigation_ipu"
         android:icon="@drawable/ic_ipu"
         android:title="@string/ipu" />
     <item
-        android:id="@+id/menu_challenge"
+        android:id="@+id/navigation_challenge"
         android:icon="@drawable/ic_challenge"
         android:title="@string/tantangan" />
     <item
-        android:id="@+id/menu_leaderboard"
+        android:id="@+id/navigation_leaderboard"
         android:icon="@drawable/ic_leaderboard"
         android:title="@string/peringkat" />
 </menu>

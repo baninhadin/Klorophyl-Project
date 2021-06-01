@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:id="@+id/bnv"
-        android:background="@color/white"
+        android:background="@color/blue_200"
         app:menu="@menu/bnv_main"
         app:labelVisibilityMode="labeled"
         app:layout_constraintLeft_toLeftOf="parent"

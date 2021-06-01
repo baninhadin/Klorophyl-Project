@@ -6,8 +6,31 @@
     <string name="ipu">IPU</string>
     <string name="tantangan">Tantangan</string>
     <string name="peringkat">Peringkat</string>
+    <string name="pencapaian">Pencapaianmu</string>
+    <string name="kontribusi">Kontribusimu sejauh ini</string>
+    <string name="poin">Poinmu saat ini</string>
+    <string name="peringkat_home">Peringkatmu di kecamatan</string>
+    <string name="lihat_detail">Lihat Detail</string>
+    <string name="indeks_placeholder">Indeks Pencemaran Udara</string>
+    <string name="kontribusi_placeholder">x Tantangan</string>
+    <string name="poin_placeholder">x Poin</string>
+    <string name="Status_placeholder">Status</string>
+    <string name="tanggal_placeholder">Per tanggal xx-yy-zzzz</string>
+    <string name="detail_placeholder">Lorem ipsum dolor sit amet</string>
+    <string name="kecamatan_placeholder">Nama Kecamatan</string>
+    <string name="peringkat_placeholder">Peringkat x</string>
+    <string name="username_placeholder">Nama Pengguna</string>
+    <string name="poin_leaderboard_placeholder">x Poin</string>
     <string name="challenge_fragment">Challenge Fragment</string>
     <string name="home_fragment">Home Fragment</string>
     <string name="ipu_fragment">IPU Fragment</string>
     <string name="leaderboard_fragment">Leaderboard Fragment</string>
+    
+    <string-array name="list_kecamatan_placeholder">
+        <item>Kecamatan 1</item>
+        <item>Kecamatan 2</item>
+        <item>Kecamatan 3</item>
+        <item>Kecamatan 4</item>
+        <item>Kecamatan 5</item>
+    </string-array>
 </resources>
