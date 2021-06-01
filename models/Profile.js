@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const ProfileSchema = new mongoose.Schema({
   user: {
@@ -64,10 +64,13 @@ const ProfileSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  points : {
+  points: {
     type: Number,
-    default: 0
-  }
-});
+    default: 0,
+  },
+  avatar: {
+    type: String,
+  },
+})
 
-module.exports = mongoose.model('profile', ProfileSchema);
+module.exports = mongoose.model('profile', ProfileSchema)

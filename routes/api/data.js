@@ -5,48 +5,45 @@ const router = express.Router()
 const Data = require('../../models/Data')
 var cron = require('node-cron')
 
-
-var degToCard = function(deg){
-  if (deg>11.25 && deg<=33.75){
-    return "north-northeast";
-  }else if (deg>33.75 && deg<=56.25){
-    return "east-northeast";
-  }else if (deg>56.25 && deg<=78.75){
-    return "east";
-  }else if (deg>78.75 && deg<=101.25){
-    return "east-southeast";
-  }else if (deg>101.25 && deg<=123.75){
-    return "east-southeast";
-  }else if (deg>123.75 && deg<=146.25){
-    return "southeast";
-  }else if (deg>146.25 && deg<=168.75){
-    return "south-southeast";
-  }else if (deg>168.75 && deg<=191.25){
-    return "south";
-  }else if (deg>191.25 && deg<=213.75){
-    return "south-southwest";
-  }else if (deg>213.75 && deg<=236.25){
-    return "southwest";
-  }else if (deg>236.25 && deg<=258.75){
-    return "west-southwest";
-  }else if (deg>258.75 && deg<=281.25){
-    return "west";
-  }else if (deg>281.25 && deg<=303.75){
-    return "west-northwest";
-  }else if (deg>303.75 && deg<=326.25){
-    return "northwest";
-  }else if (deg>326.25 && deg<=348.75){
-    return "north-northwest";
-  }else{
-    return "north"; 
+var degToCard = function (deg) {
+  if (deg > 11.25 && deg <= 33.75) {
+    return 'north-northeast'
+  } else if (deg > 33.75 && deg <= 56.25) {
+    return 'east-northeast'
+  } else if (deg > 56.25 && deg <= 78.75) {
+    return 'east'
+  } else if (deg > 78.75 && deg <= 101.25) {
+    return 'east-southeast'
+  } else if (deg > 101.25 && deg <= 123.75) {
+    return 'east-southeast'
+  } else if (deg > 123.75 && deg <= 146.25) {
+    return 'southeast'
+  } else if (deg > 146.25 && deg <= 168.75) {
+    return 'south-southeast'
+  } else if (deg > 168.75 && deg <= 191.25) {
+    return 'south'
+  } else if (deg > 191.25 && deg <= 213.75) {
+    return 'south-southwest'
+  } else if (deg > 213.75 && deg <= 236.25) {
+    return 'southwest'
+  } else if (deg > 236.25 && deg <= 258.75) {
+    return 'west-southwest'
+  } else if (deg > 258.75 && deg <= 281.25) {
+    return 'west'
+  } else if (deg > 281.25 && deg <= 303.75) {
+    return 'west-northwest'
+  } else if (deg > 303.75 && deg <= 326.25) {
+    return 'northwest'
+  } else if (deg > 326.25 && deg <= 348.75) {
+    return 'north-northwest'
+  } else {
+    return 'north'
   }
 }
 
-cron.schedule('0 */3 * * *', async () => {
-// let fetchData = async () => {
-  console.log(
-    'Fetching data and storing it to database every 3 hour'
-  )
+cron.schedule('0 0 */3 * * *', async () => {
+  // let fetchData = async () => {
+  console.log('Fetching data and storing it to database every 3 hour')
   try {
     // Initialize variable for fetching data
     let token = config.get('WAQI_KEY')
@@ -63,7 +60,7 @@ cron.schedule('0 */3 * * *', async () => {
       .toISOString()
       .slice(0, 13)
       .replace('T', ':')
-      endDate = endDate.toISOString().slice(0, 13).replace('T', ':')
+    endDate = endDate.toISOString().slice(0, 13).replace('T', ':')
 
     realData = rawData.data.data
 
@@ -78,32 +75,33 @@ cron.schedule('0 */3 * * *', async () => {
 
       let weatherData = await axios.get(`${link}/${endpoints}?${params}`)
       // console.log(weatherData.data.data)
-       endDate = new Date()
-       startDate = new Date(endDate.getTime() - 2 * 24 * 60 * 60 * 1000)
+      endDate = new Date()
+      startDate = new Date(endDate.getTime() - 2 * 24 * 60 * 60 * 1000)
         .toISOString()
         .slice(0, 13)
         .replace('T', ':')
-        endDate = new Date(endDate.getTime() - 1 * 24 * 60 * 60 * 1000)
+      endDate = new Date(endDate.getTime() - 1 * 24 * 60 * 60 * 1000)
         .toISOString()
         .slice(0, 13)
         .replace('T', ':')
-        params = `lat=${datas.station.geo[0]}&lon=${datas.station.geo[1]}&key=${token}&start_date=${startDate}&end_date=${endDate}`
+      params = `lat=${datas.station.geo[0]}&lon=${datas.station.geo[1]}&key=${token}&start_date=${startDate}&end_date=${endDate}`
 
       let weatherData1 = await axios.get(`${link}/${endpoints}?${params}`)
       endDate = new Date()
       startDate = new Date(endDate.getTime() - 3 * 24 * 60 * 60 * 1000)
-       .toISOString()
-       .slice(0, 13)
-       .replace('T', ':')
-       endDate = new Date(endDate.getTime() - 2 * 24 * 60 * 60 * 1000)
-       .toISOString()
-       .slice(0, 13)
-       .replace('T', ':')    
-       params = `lat=${datas.station.geo[0]}&lon=${datas.station.geo[1]}&key=${token}&start_date=${startDate}&end_date=${endDate}`   
+        .toISOString()
+        .slice(0, 13)
+        .replace('T', ':')
+      endDate = new Date(endDate.getTime() - 2 * 24 * 60 * 60 * 1000)
+        .toISOString()
+        .slice(0, 13)
+        .replace('T', ':')
+      params = `lat=${datas.station.geo[0]}&lon=${datas.station.geo[1]}&key=${token}&start_date=${startDate}&end_date=${endDate}`
       let weatherData2 = await axios.get(`${link}/${endpoints}?${params}`)
 
-      let totalWeatherData = weatherData.data.data.concat(weatherData1.data.data).concat(weatherData2.data.data)
- 
+      let totalWeatherData = weatherData.data.data
+        .concat(weatherData1.data.data)
+        .concat(weatherData2.data.data)
 
       // Fetch air quality data from WEATHERBIT API
       endpoints = 'history/airquality'
@@ -120,7 +118,6 @@ cron.schedule('0 */3 * * *', async () => {
           },
         })
 
-
         let foundWeatherData = totalWeatherData.find((items) => {
           return items.timestamp_utc == item.timestamp_utc
         })
@@ -135,7 +132,6 @@ cron.schedule('0 */3 * * *', async () => {
         data.airQuality.pm25 = item.pm25
 
         if (foundWeatherData) {
-
           data.weather.windDir = degToCard(foundWeatherData.wind_dir)
           data.weather.windSpeed = foundWeatherData.wind_spd
           data.weather.precip = foundWeatherData.precip
@@ -147,12 +143,10 @@ cron.schedule('0 */3 * * *', async () => {
         return data.save()
       })
 
-
       return aqiPromises
     })
 
     await Promise.all(promises)
-
   } catch (err) {
     console.error(err.message)
     res.status(500).send("There's an error on the server")
@@ -183,7 +177,7 @@ router.get('/history', async (req, res) => {
         },
       })
         .select({ _id: 0, __v: 0 })
-        .sort({ date: req.query.asc || -1 })
+        .sort({ date: req.query.asc ? req.query.asc : -1 })
       console.log(queryData.length)
       return res.json(queryData)
     }
@@ -277,7 +271,6 @@ router.get('/current', async (req, res) => {
     })
 
     Promise.all(promises).then((data) => res.json(data))
-
   } catch (err) {
     console.error(err.message)
     res.status(500).send("There's an error on the server")
