@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SocioGreen.iml" filepath="$PROJECT_DIR$/.idea/modules/SocioGreen.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/SocioGreen.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/SocioGreen.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Klorophyl.iml" filepath="$PROJECT_DIR$/.idea/modules/Klorophyl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Klorophyl.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Klorophyl.app.iml" />
     </modules>
   </component>
 </project>
