@@ -13,56 +13,9 @@ const ProfileSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  bio: {
-    type: String,
-  },
-  education: [
-    {
-      school: {
-        type: String,
-        required: true,
-      },
-      degree: {
-        type: String,
-        required: true,
-      },
-      fieldofstudy: {
-        type: String,
-        required: true,
-      },
-      from: {
-        type: Date,
-        required: true,
-      },
-      to: {
-        type: Date,
-      },
-      current: {
-        type: Boolean,
-        default: false,
-      },
-      description: {
-        type: String,
-      },
-    },
-  ],
-  social: {
-    twitter: {
-      type: String,
-    },
-    facebook: {
-      type: String,
-    },
-    linkedin: {
-      type: String,
-    },
-    instagram: {
-      type: String,
-    },
-  },
   date: {
     type: Date,
-    default: Date.now,
+    default: new Date(),
   },
   points: {
     type: Number,
@@ -70,6 +23,7 @@ const ProfileSchema = new mongoose.Schema({
   },
   avatar: {
     type: String,
+    default: 'https://hidden-will-313103.uc.r.appspot.com/uploads/default.png',
   },
 })
 

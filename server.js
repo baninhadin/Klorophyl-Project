@@ -9,13 +9,17 @@ connectDB()
 // Init Middleware
 app.use(express.json())
 
+app.get('/', (req, res) => {
+  res.send('Welcome to Klorophyl API!')
+})
+
 // Define Routes
 app.use('/uploads', express.static('uploads'))
 app.use('/api/users', require('./routes/api/users'))
 app.use('/api/auth', require('./routes/api/auth'))
 app.use('/api/profile', require('./routes/api/profile'))
 app.use('/api/data', require('./routes/api/data.js'))
-// app.use('/api/posts', require('./routes/api/posts'));
+app.use('/api/challenge', require('./routes/api/challenge'))
 
 const PORT = process.env.PORT || 5000
 

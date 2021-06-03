@@ -44,6 +44,7 @@ router.post(
     let profile_att = {
       user: req.user.id,
       ...req.body,
+      avatar: 'uploads/default.png',
     }
     if (req.file) {
       profile_att = {

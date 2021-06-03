@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 
 // Getting One
 router.get('/:userName', getUser, (req, res) => {
-  res.json(res.user)
+  res.json(res.user.select({ _id: 0, __v: 0 }))
 })
 
 // Creating one
@@ -32,6 +32,7 @@ router.post(
     'password',
     'Please enter a password with 6 or more characters'
   ).isLength({ min: 6 }),
+  check('location', 'Location is required').notEmpty(),
   async (req, res) => {
     // If one of the validation returns an error
     const errors = validationResult(req)
@@ -39,7 +40,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() })
     }
 
-    const { userName, email, password } = req.body
+    const { userName, email, password, location } = req.body
     try {
       let user = await User.findOne({ userName })
 
@@ -50,9 +51,8 @@ router.post(
       }
 
       user = new User({
-        userName,
-        email,
-        password,
+        fullName: userName,
+        ...req.body,
       })
 
       const salt = await bcrypt.genSalt(10)
@@ -70,7 +70,7 @@ router.post(
       jwt.sign(
         payload,
         config.get('jwtSecret'),
-        { expiresIn: '5 days' },
+        { expiresIn: '3h' },
         (err, token) => {
           if (err) throw err
           res.json({ token })
@@ -91,9 +91,29 @@ router.patch('/:userName', getUser, async (req, res) => {
   if (req.body.email != null) {
     res.user.email = req.body.email
   }
-  // if (req.body.fullName != null) {
-  // res.user.fullName = req.body.fullName;
-  // }
+  if (req.body.password != null) {
+    const salt = await bcrypt.genSalt(10)
+
+    user.password = await bcrypt.hash(password, salt)
+
+    await user.save()
+
+    const payload = {
+      user: {
+        id: user.id,
+      },
+    }
+
+    jwt.sign(
+      payload,
+      config.get('jwtSecret'),
+      { expiresIn: '5 days' },
+      (err, token) => {
+        if (err) throw err
+        res.user.password = token
+      }
+    )
+  }
   try {
     const updatedUser = await res.user.save()
     res.json(updatedUser)
