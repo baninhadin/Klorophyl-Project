@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 
 // Getting One
 router.get('/:userName', getUser, (req, res) => {
-  res.json(res.user.select({ _id: 0, __v: 0 }))
+  res.json(res.user)
 })
 
 // Creating one

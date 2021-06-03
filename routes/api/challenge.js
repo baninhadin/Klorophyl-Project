@@ -149,7 +149,7 @@ router.post('/', async (req, res) => {
 
     challenge = new Challenge({
       date: nowDate,
-      location = realLocation,
+      location: realLocation,
       ...challengeAttr,
     })
 
