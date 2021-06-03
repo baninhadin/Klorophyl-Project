@@ -91,16 +91,13 @@ router.get('/history', async (req, res) => {
 // post hasil predict dan save di database
 router.post('/', async (req, res) => {
   const nowDate = new Date().toJSON().slice(0, 10)
+  //   console.log(translateLocation(req.body.Location))
+  console.log(nowDate)
   try {
-    let challenge
-
-    await Challenge.findOne(
-      {
-        location: translateLocation(req.body.Location),
-        date: new Date().toJSON().slice(0, 10),
-      },
-      (err, chall) => (challenge = chall)
-    )
+    let challenge = await Challenge.findOne({
+      location: translateLocation(req.body.Location),
+      date: nowDate,
+    })
 
     if (Object.keys(req.body).length == 0) {
       return res.status(500).json({ message: 'Need Body Data' })
@@ -119,7 +116,6 @@ router.post('/', async (req, res) => {
     let realLocation = translateLocation(Location)
 
     const challengeAttr = {
-      location: realLocation,
       challenge_co: {
         points: challenge_co,
         qrcode: `https://hidden-will-313103.uc.r.appspot.com/${Location}/challenge_co`,
@@ -144,7 +140,7 @@ router.post('/', async (req, res) => {
 
     if (challenge) {
       challenge = await Challenge.findOneAndUpdate(
-        { date: new Date().toJSON().slice(0, 10) },
+        { date: nowDate },
         { $set: challengeAttr },
         { new: true, upsert: true, setDefaultsOnInsert: true }
       )
@@ -153,6 +149,7 @@ router.post('/', async (req, res) => {
 
     challenge = new Challenge({
       date: nowDate,
+      location = realLocation,
       ...challengeAttr,
     })
 
