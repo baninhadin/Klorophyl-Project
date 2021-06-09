@@ -63,7 +63,7 @@ class QrcodeActivity : AppCompatActivity() {
 
             decodeCallback = DecodeCallback {
                 runOnUiThread {
-                    binding.tvText.text = it.text
+                    binding.tvText.text = "Challenge completed. Check your points!"
 
                     it.text.let {
                         viewModel.setScannedChallenge(it)
