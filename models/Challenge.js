@@ -1,14 +1,15 @@
 const mongoose = require('mongoose')
 
 const challengeSchema = new mongoose.Schema({
-  name: {
-    type: String,
-  },
   location: {
     type: String,
     required: true,
   },
   challenge_co: {
+    name: {
+      type: String,
+      default: 'challenge_co',
+    },
     description: {
       type: String,
       default:
@@ -23,6 +24,10 @@ const challengeSchema = new mongoose.Schema({
     },
   },
   challenge_pm10: {
+    name: {
+      type: String,
+      default: 'challenge_pm10',
+    },
     description: {
       type: String,
       default:
@@ -37,6 +42,10 @@ const challengeSchema = new mongoose.Schema({
     },
   },
   challenge_o3: {
+    name: {
+      type: String,
+      default: 'challenge_o3',
+    },
     description: {
       type: String,
       default:
@@ -51,6 +60,10 @@ const challengeSchema = new mongoose.Schema({
     },
   },
   challenge_so2: {
+    name: {
+      type: String,
+      default: 'challenge_so2',
+    },
     description: {
       type: String,
       default:
@@ -65,6 +78,10 @@ const challengeSchema = new mongoose.Schema({
     },
   },
   challenge_no2: {
+    name: {
+      type: String,
+      default: 'challenge_no2',
+    },
     description: {
       type: String,
       default:

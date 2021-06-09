@@ -86,6 +86,9 @@ router.patch('/:userName', getUser, async (req, res) => {
   if (req.body.email != null) {
     res.user.email = req.body.email
   }
+  if (req.body.points != null) {
+    res.user.points = req.body.points
+  }
   if (req.body.password != null) {
     const salt = await bcrypt.genSalt(10)
 
@@ -99,15 +102,10 @@ router.patch('/:userName', getUser, async (req, res) => {
       },
     }
 
-    jwt.sign(
-      payload,
-      config.get('jwtSecret'),
-      { expiresIn: '5 days' },
-      (err, token) => {
-        if (err) throw err
-        res.user.password = token
-      }
-    )
+    jwt.sign(payload, config.get('jwtSecret'), (err, token) => {
+      if (err) throw err
+      res.user.password = token
+    })
   }
   try {
     const updatedUser = await res.user.save()
