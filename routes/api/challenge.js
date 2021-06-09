@@ -117,24 +117,29 @@ router.post('/', async (req, res) => {
 
     const challengeAttr = {
       challenge_co: {
+        name: 'challenge_co',
         points: challenge_co,
-        qrcode: `https://hidden-will-313103.uc.r.appspot.com/${Location}/challenge_co`,
+        qrcode: `https://hidden-will-313103.uc.r.appspot.com/api/challenge/${Location}/challenge_co`,
       },
       challenge_pm10: {
+        name: 'challenge_pm10',
         points: challenge_pm10,
-        qrcode: `https://hidden-will-313103.uc.r.appspot.com/${Location}/challenge_pm10`,
+        qrcode: `https://hidden-will-313103.uc.r.appspot.com/api/challenge/${Location}/challenge_pm10`,
       },
       challenge_o3: {
+        name: 'challenge_o3',
         points: challenge_o3,
-        qrcode: `https://hidden-will-313103.uc.r.appspot.com/${Location}/challenge_o3`,
+        qrcode: `https://hidden-will-313103.uc.r.appspot.com/api/challenge/${Location}/challenge_o3`,
       },
       challenge_so2: {
+        name: 'challenge_so2',
         points: challenge_so2,
-        qrcode: `https://hidden-will-313103.uc.r.appspot.com/${Location}/challenge_so2`,
+        qrcode: `https://hidden-will-313103.uc.r.appspot.com/api/challenge/${Location}/challenge_so2`,
       },
       challenge_no2: {
+        name: 'challenge_no2',
         points: challenge_no2,
-        qrcode: `https://hidden-will-313103.uc.r.appspot.com/${Location}/challenge_no2`,
+        qrcode: `https://hidden-will-313103.uc.r.appspot.com/api/challenge/${Location}/challenge_no2`,
       },
     }
 
