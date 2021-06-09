@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.sociogreen.HomeFragment"
+        android:name="com.example.klorophyl.fragment.HomeFragment"
         android:label="homeFragment"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/navigation_ipu"
-        android:name="com.example.sociogreen.IpuFragment"
+        android:name="com.example.klorophyl.fragment.IpuFragment"
         android:label="ipuFragment"
         tools:layout="@layout/fragment_ipu" />
     <fragment
         android:id="@+id/navigation_challenge"
-        android:name="com.example.sociogreen.ChallengeFragment"
+        android:name="com.example.klorophyl.fragment.ChallengeFragment"
         android:label="challengeFragment"
         tools:layout="@layout/fragment_challenge" />
     <fragment
         android:id="@+id/navigation_leaderboard"
-        android:name="com.example.sociogreen.LeaderboardFragment"
+        android:name="com.example.klorophyl.fragment.LeaderboardFragment"
         android:label="fragment_favorite_movie"
         tools:layout="@layout/fragment_leaderboard" />
 
