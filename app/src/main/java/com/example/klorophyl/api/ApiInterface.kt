@@ -1,10 +1,8 @@
 package com.example.klorophyl.api
 
-import com.example.klorophyl.BuildConfig
 import com.example.klorophyl.model.SigninRequest
 import com.example.klorophyl.model.SignupRequest
 import com.example.klorophyl.model.UpdatePointsRequest
-import com.example.klorophyl.model.User
 import com.example.klorophyl.response.*
 import retrofit2.Call
 import retrofit2.http.*
@@ -12,7 +10,8 @@ import retrofit2.http.*
 interface ApiInterface {
     companion object {
         //const val BASE_URL = "https://hidden-will-313103.uc.r.appspot.com/"
-        const val REGISTER_API_KEY = BuildConfig.REGISTER_API_KEY
+        const val REGISTER_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjBiM2MzMmU2NTUxNDAwMDE1YWNlNjU3In0sImlhdCI6MTYyMjM5MzY0NiwiZXhwIjoxNjIyODI1NjQ2fQ.WXtjI_scPCDOQGs5jvAsHuE2Ue-6aLwd50MKLNCzjdQ"
+
     }
 
     @POST("api/users/?api_key=$REGISTER_API_KEY")
